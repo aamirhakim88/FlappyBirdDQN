@@ -1,14 +1,10 @@
 from __future__ import print_function
-from __future__ import division
 # -----------------------------
 # File: Deep Q-Learning Algorithm
 # Author: Flood Sung
 # Date: 2016.3.21
 # -----------------------------
 
-from builtins import range
-from builtins import object
-from past.utils import old_div
 import mxnet as mx 
 import numpy as np 
 import random
@@ -41,7 +37,7 @@ def dataPrep(data):
     return data
 
 
-class BrainDQN(object):
+class BrainDQN:
     def __init__(self,actions,param_file=None):
         # init replay memory
         self.replayMemory = deque()
@@ -202,6 +198,6 @@ class BrainDQN(object):
 
         # change episilon
         if self.epsilon > FINAL_EPSILON and self.timeStep > OBSERVE:
-            self.epsilon -= old_div((INITIAL_EPSILON - FINAL_EPSILON),EXPLORE)
+            self.epsilon -= (INITIAL_EPSILON - FINAL_EPSILON)/EXPLORE
 
         return action

@@ -1,10 +1,3 @@
-from __future__ import division
-from builtins import zip
-from builtins import next
-from builtins import str
-from builtins import range
-from builtins import object
-from past.utils import old_div
 import numpy as np
 import sys
 import random
@@ -36,11 +29,11 @@ BACKGROUND_WIDTH = IMAGES['background'].get_width()
 PLAYER_INDEX_GEN = cycle([0, 1, 2, 1])
 
 
-class GameState(object):
+class GameState:
     def __init__(self):
         self.score = self.playerIndex = self.loopIter = 0
         self.playerx = int(SCREENWIDTH * 0.2)
-        self.playery = int(old_div((SCREENHEIGHT - PLAYER_HEIGHT), 2))
+        self.playery = int((SCREENHEIGHT - PLAYER_HEIGHT) / 2)
         self.basex = 0
         self.baseShift = IMAGES['base'].get_width() - BACKGROUND_WIDTH
 
@@ -48,11 +41,11 @@ class GameState(object):
         newPipe2 = getRandomPipe()
         self.upperPipes = [
             {'x': SCREENWIDTH, 'y': newPipe1[0]['y']},
-            {'x': SCREENWIDTH + (old_div(SCREENWIDTH, 2)), 'y': newPipe2[0]['y']},
+            {'x': SCREENWIDTH + (SCREENWIDTH / 2), 'y': newPipe2[0]['y']},
         ]
         self.lowerPipes = [
             {'x': SCREENWIDTH, 'y': newPipe1[1]['y']},
-            {'x': SCREENWIDTH + (old_div(SCREENWIDTH, 2)), 'y': newPipe2[1]['y']},
+            {'x': SCREENWIDTH + (SCREENWIDTH / 2), 'y': newPipe2[1]['y']},
         ]
 
         # player velocity, max velocity, downward accleration, accleration on flap
@@ -82,9 +75,9 @@ class GameState(object):
                 #SOUNDS['wing'].play()
 
         # check for score
-        playerMidPos = self.playerx + old_div(PLAYER_WIDTH, 2)
+        playerMidPos = self.playerx + PLAYER_WIDTH / 2
         for pipe in self.upperPipes:
-            pipeMidPos = pipe['x'] + old_div(PIPE_WIDTH, 2)
+            pipeMidPos = pipe['x'] + PIPE_WIDTH / 2
             if pipeMidPos <= playerMidPos < pipeMidPos + 4:
                 self.score += 1
                 #SOUNDS['point'].play()
@@ -175,7 +168,7 @@ def showScore(score):
     for digit in scoreDigits:
         totalWidth += IMAGES['numbers'][digit].get_width()
 
-    Xoffset = old_div((SCREENWIDTH - totalWidth), 2)
+    Xoffset = (SCREENWIDTH - totalWidth) / 2
 
     for digit in scoreDigits:
         SCREEN.blit(IMAGES['numbers'][digit], (Xoffset, SCREENHEIGHT * 0.1))
@@ -225,8 +218,8 @@ def pixelCollision(rect1, rect2, hitmask1, hitmask2):
     x1, y1 = rect.x - rect1.x, rect.y - rect1.y
     x2, y2 = rect.x - rect2.x, rect.y - rect2.y
 
-    for x in range(rect.width):
-        for y in range(rect.height):
+    for x in xrange(rect.width):
+        for y in xrange(rect.height):
             if hitmask1[x1+x][y1+y] and hitmask2[x2+x][y2+y]:
                 return True
     return False
