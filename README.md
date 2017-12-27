@@ -2,6 +2,11 @@
 - Added support for Python3
 * Install Dependent Libraries
   `pip install --user future pygame python-opencv`
+- To run on GPU. Update BrainDQN_mx.py Line #27
+```
+-- ctx = mx.cpu()
+++ ctx = mx.gpu()
+```
 
 
 ## Playing Flappy Bird Using Deep Reinforcement Learning (Based on Deep Q Learning DQN)
