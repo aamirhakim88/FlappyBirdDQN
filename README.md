@@ -1,6 +1,7 @@
 ## Aamir's Edits
-
 - Added support for Python3
+* Install Dependent Libraries
+  `pip install --user future pygame python-opencv`
 
 
 ## Playing Flappy Bird Using Deep Reinforcement Learning (Based on Deep Q Learning DQN)
